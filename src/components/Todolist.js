@@ -41,6 +41,19 @@ function Todolist() {
                         <tr key={index}>
                             <td>{todo.date}</td>
                             <td>{todo.description}</td>
+                            <td>
+                                <button
+                                    onClick={() =>
+                                        setTodos(
+                                            todos.filter(
+                                                (todo, i) => i !== index
+                                            )
+                                        )
+                                    }
+                                >
+                                    Delete
+                                </button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
@@ -49,4 +62,3 @@ function Todolist() {
     );
 }
 export default Todolist;
-//tehtävässä description ja pvm samaan olioon.
