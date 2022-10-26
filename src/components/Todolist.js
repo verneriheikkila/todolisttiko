@@ -1,6 +1,10 @@
 import React, { useState, useRef } from 'react';
 // import TodoTable from './TodoTable';
 import { AgGridReact } from 'ag-grid-react';
+import { TextField } from '@mui/material';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { DatePicker } from '@mui/x-date-pickers';
 
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-material.css';
@@ -8,10 +12,12 @@ import 'ag-grid-community/styles/ag-theme-material.css';
 function Todolist() {
     const [todo, setTodo] = useState({
         description: '',
-        date: '',
         priority: '',
     });
+    const [date, setDate] = useState('');
+
     const [todos, setTodos] = useState([]);
+
     const gridRef = useRef();
 
     const [columnDefs] = useState([
@@ -65,12 +71,14 @@ function Todolist() {
                 value={todo.description}
                 onChange={inputChanged}
             />
-            <input
-                type="date"
-                name="date"
-                value={todo.date}
-                onChange={inputChanged}
-            />
+            <LocalizationProvider dateAdapter={AdapterMoment}>
+                <DatePicker
+                    label="date"
+                    value={date}
+                    onChange={(e) => setDate(e)}
+                    renderInput={(params) => <TextField {...params} />}
+                />
+            </LocalizationProvider>
             <input
                 type="text"
                 name="priority"
